@@ -40,11 +40,11 @@ def create_text_cnn_model(input_shape):
 
     model.add(Conv1D(128, 5, activation='relu', input_shape=input_shape))
     model.add(MaxPooling1D(pool_size=2))
-    # model.add(Dropout(0.2))
+    model.add(Dropout(0.5))
 
     model.add(Conv1D(128, 5, activation='relu'))
     model.add(MaxPooling1D(pool_size=2))
-    # model.add(Dropout(0.2))
+    model.add(Dropout(0.5))
 
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
@@ -82,12 +82,20 @@ def visualize_model_performance(history, x_test, y_test, model):
         plt.xlabel('Epoch')
         plt.legend(['Train', 'Test'], loc='upper right')
         plt.show()
+
+        plt.plot(history.history['accuracy'])
+        plt.plot(history.history['val_accuracy'])
+        plt.title('Model Accuracy')
+        plt.ylabel('Accuracy')
+        plt.xlabel('Epoch')
+        plt.legend(['Train', 'Test'], loc='upper right')
+        plt.show()
     else:
         loss, accuracy = model.evaluate(x_test, y_test, verbose=0)
         print(f"Test Loss: {loss}")
         print(f"Test Accuracy: {accuracy}")
 
-
+# Save and load model
 def save_model(model, model_name="text_cnn_model"):
     model_json = model.to_json()
     with open(f"{model_name}.json", "w") as json_file:
