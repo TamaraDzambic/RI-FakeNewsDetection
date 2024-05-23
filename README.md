@@ -1,2 +1,1 @@
-# RI-FakeNewsDetection
-Analiza teksta za detekciju lažnih vesti
+# Analiza teksta za detekciju lažnih vesti
